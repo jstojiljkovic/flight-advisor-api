@@ -1,0 +1,1222 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Flight Advisor Api Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "jstojiljkovic941@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/flight-advisor/v1/airports/import": {
+            "post": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Import airports into storage",
+                "description": "",
+                "operationId": "import",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "airports"
+                                ],
+                                "properties": {
+                                    "airports": {
+                                        "description": "Airports to import",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Imports airports inside a database",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Imports airports inside a database",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/cities": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Returns all the cities with all the comments or the x leatest comments",
+                "description": "",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "comments",
+                        "in": "query",
+                        "description": "Number of latest comments to be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Show all existing cities",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "Show all existing cities",
+                                                        "type": "int",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Show all existing cities",
+                                                        "type": "string",
+                                                        "example": "Nis"
+                                                    },
+                                                    "country": {
+                                                        "description": "Show all existing cities",
+                                                        "type": "string",
+                                                        "example": "Serbia"
+                                                    },
+                                                    "description": {
+                                                        "description": "Show all existing cities",
+                                                        "type": "string",
+                                                        "example": "Drinking problem country"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Initial creation timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Last update timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    },
+                                                    "comments": {
+                                                        "description": "Show all existing cities",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "Show all existing cities",
+                                                                    "type": "int",
+                                                                    "example": "1"
+                                                                },
+                                                                "comment": {
+                                                                    "description": "Show all existing cities",
+                                                                    "type": "text",
+                                                                    "example": "This is just a random comment"
+                                                                },
+                                                                "city_id": {
+                                                                    "description": "Show all existing cities",
+                                                                    "type": "int",
+                                                                    "example": "1"
+                                                                },
+                                                                "created_at": {
+                                                                    "description": "Initial creation timestamp",
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "readOnly": "true"
+                                                                },
+                                                                "updated_at": {
+                                                                    "description": "Last update timestamp",
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "readOnly": "true"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Show all existing cities",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Show all existing cities",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Store a newly created city in storage.",
+                "description": "",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Add city object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "country",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "Nis"
+                                    },
+                                    "country": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "Serbia"
+                                    },
+                                    "description": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "Drinking problem country"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "Nis"
+                                        },
+                                        "country": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "Serbia"
+                                        },
+                                        "description": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "Drinking problem country"
+                                        },
+                                        "id": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "int",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Returns when user does not have correct perimissions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "string",
+                                            "example": "You dont have correct permission to access this."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/cities/search": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Returns all the cities with matched name with all the comments or the x leatest comments",
+                "description": "",
+                "operationId": "search",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "City's name to search",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "comments",
+                        "in": "query",
+                        "description": "Number of latest comments to be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Search city by name",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "Search city by name",
+                                                        "type": "int",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "Search city by name",
+                                                        "type": "string",
+                                                        "example": "Nis"
+                                                    },
+                                                    "country": {
+                                                        "description": "Search city by name",
+                                                        "type": "string",
+                                                        "example": "Serbia"
+                                                    },
+                                                    "description": {
+                                                        "description": "Search city by name",
+                                                        "type": "string",
+                                                        "example": "Drinking problem country"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Initial creation timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Last update timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    },
+                                                    "comments": {
+                                                        "description": "Search city by name",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "Search city by name",
+                                                                    "type": "int",
+                                                                    "example": "1"
+                                                                },
+                                                                "comment": {
+                                                                    "description": "Search city by name",
+                                                                    "type": "text",
+                                                                    "example": "This is just a random comment"
+                                                                },
+                                                                "city_id": {
+                                                                    "description": "Search city by name",
+                                                                    "type": "int",
+                                                                    "example": "1"
+                                                                },
+                                                                "created_at": {
+                                                                    "description": "Initial creation timestamp",
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "readOnly": "true"
+                                                                },
+                                                                "updated_at": {
+                                                                    "description": "Last update timestamp",
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "readOnly": "true"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Search city by name",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Search city by name",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/cities/{cityId}/comments": {
+            "post": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Store a newly created city comment in storage.",
+                "description": "",
+                "operationId": "storeComment",
+                "parameters": [
+                    {
+                        "name": "cityId",
+                        "in": "path",
+                        "description": "City id to attach comment",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Add comment object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "comment": {
+                                        "description": "Store a newly created comment resource in storage.",
+                                        "type": "text",
+                                        "example": "This is just a random comment"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "comment": {
+                                            "description": "Store a newly created comment resource in storage.",
+                                            "type": "string",
+                                            "example": "This is just a random comment"
+                                        },
+                                        "id": {
+                                            "description": "Store a newly created comment resource in storage.",
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "created_at": {
+                                            "description": "Initial creation timestamp",
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "readOnly": "true"
+                                        },
+                                        "updated_at": {
+                                            "description": "Last update timestamp",
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "readOnly": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created comment resource in storage.",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created comment resource in storage.",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Returns when city was not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Store a newly created comment resource in storage.",
+                                            "type": "string",
+                                            "example": "City with the provided id does not exist."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/comments/{commentId}": {
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Deletes comment",
+                "description": "",
+                "operationId": "commentDelete",
+                "parameters": [
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "description": "Comment id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Returns when comment with the provided id does not exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "string",
+                                            "example": "Comment with the provided id does not exist."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Updates an existing comment",
+                "description": "",
+                "operationId": "commentUpdate",
+                "parameters": [
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "description": "Comment id to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update comment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "comment": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "string",
+                                        "example": "Serbia is a drinking problem country"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "Update the specified resource in storage.",
+                                                        "type": "int",
+                                                        "example": "1"
+                                                    },
+                                                    "comment": {
+                                                        "description": "Update the specified resource in storage.",
+                                                        "type": "string",
+                                                        "example": "Serbia is a drinking problem country"
+                                                    },
+                                                    "city_id": {
+                                                        "description": "Update the specified resource in storage.",
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "Initial creation timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "Last update timestamp",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "readOnly": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Returns when comment with the provided id does not exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "string",
+                                            "example": "Comment with the provided id does not exist."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/flights/cheapest": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Returns the cheapest  route from city A to B",
+                "description": "",
+                "operationId": "cheapest",
+                "parameters": [
+                    {
+                        "name": "city1",
+                        "in": "query",
+                        "description": "City you are flying from",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city2",
+                        "in": "query",
+                        "description": "City you are flying to",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Finds cheapest flight between two cities",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "start": {
+                                                        "description": "Finds cheapest flight between two cities",
+                                                        "properties": {
+                                                            "airline": {
+                                                                "description": "Finds cheapest flight between two cities",
+                                                                "type": "string",
+                                                                "example": "Hartsfield Jackson Atlanta International Airport"
+                                                            },
+                                                            "city": {
+                                                                "description": "Finds cheapest flight between two cities",
+                                                                "type": "string",
+                                                                "example": "Atlanta"
+                                                            },
+                                                            "country": {
+                                                                "description": "Finds cheapest flight between two cities",
+                                                                "type": "string",
+                                                                "example": "United States"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "end": {
+                                                        "description": "Finds cheapest flight between two cities",
+                                                        "properties": {
+                                                            "name": {
+                                                                "description": "Finds cheapest flight between two cities",
+                                                                "type": "string",
+                                                                "example": "Dothan Regional Airport"
+                                                            },
+                                                            "city": {
+                                                                "description": "Dothan",
+                                                                "type": "string"
+                                                            },
+                                                            "country": {
+                                                                "description": "Finds cheapest flight between two cities",
+                                                                "type": "string",
+                                                                "example": "United States"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "price": {
+                                                        "description": "Finds cheapest flight between two cities",
+                                                        "type": "float",
+                                                        "example": "42.04"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Finds cheapest flight between two cities",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Finds cheapest flight between two cities",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Returns when cities with the provided id does not exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Finds cheapest flight between two cities",
+                                            "type": "string",
+                                            "example": "Airport in the city Nis does not exist"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        },
+        "/flight-advisor/v1/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Registers a new user",
+                "description": "",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Add user object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "john_doe"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "last_name": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "example": "john_doe"
+                                        },
+                                        "id": {
+                                            "type": "int",
+                                            "example": "1"
+                                        },
+                                        "created_at": {
+                                            "description": "Initial creation timestamp",
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "readOnly": "true"
+                                        },
+                                        "updated_at": {
+                                            "description": "Last update timestamp",
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "readOnly": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when username is already taken or validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/flight-advisor/v1/routes/import": {
+            "post": {
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Import routes into storage",
+                "description": "",
+                "operationId": "import",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "routes"
+                                ],
+                                "properties": {
+                                    "routes": {
+                                        "description": "Routes to import",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Returns when validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Imports routes inside a database",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Returns when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Imports routes inside a database",
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "basic": []
+                    }
+                ]
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
