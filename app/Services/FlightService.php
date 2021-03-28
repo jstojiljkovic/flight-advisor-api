@@ -69,9 +69,13 @@ class FlightService implements FlightServiceInterface
         $airport2 = $this->airportRepository->findByCity($city2);
         
         abort_if(is_null($airport2), 404, 'Airport in the city ' . $city2 . ' does not exist.');
-        
-        $routes = Cache::get('routes');
-        dump($routes);
+    
+        if (Cache::has('routes')) {
+            $routes = Cache::get('routes');
+        } else {
+            $routes = $this->routeRepository->findAll();
+        }
+  
         $graph = $this->dijkstraGraph->createGraph($routes, 'source_id', 'destination_id', 'price');
         
         $cheapestPath = $this->dijkstraGraph->shortestPath($airport1['id'], $airport2['id']);

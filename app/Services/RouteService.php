@@ -50,7 +50,7 @@ class RouteService implements RouteServiceInterface
             return ( in_array($var['source_id'], $airports) && in_array($var['destination_id'], $airports) );
         });
         
-        $this->routeRepository->chunkInsert($data, 50);
+        $this->routeRepository->chunkInsert($routesData, 5000);
         
         if (Cache::has('routes')) {
             array_merge($data, Cache::get('routes'));
