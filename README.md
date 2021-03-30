@@ -5,8 +5,7 @@
 
 ## Configuration
 
-Before API usage, please rename `.env.example` into `.env` and create SQLite database preferably `flight-advisor.sqlite` and locate it inside the database folder. 
-You are always welcome to configure your own SQLite name and the path inside `.env`
+Before API usage, please rename `.env.example` into `.env`
 
 Run this commands which will create a dummy admin account, as for API authentication I've used Stateless HTTP Authentication as it was a  test otherways, it would have a different one
 ```bash
