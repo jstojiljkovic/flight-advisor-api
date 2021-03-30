@@ -49,6 +49,6 @@ class AirportService implements AirportServiceInterface
             return ( in_array($var['city'], $cities) );
         });
         
-        $this->airportRepository->chunkInsert($data, 50);
+        $this->airportRepository->chunkInsert($airportsData, 1000);
     }
 }
